@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1, maximum-scale=1">
+  <link rel="icon" href="./images/06.jpg" type="image/x-icon"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./lib/js/vue.min.js"></script>
+  <script src="./lib/swiper/js/swiper.min.js"></script>
+  <link rel="stylesheet" href="./lib/animate/animate.min.css">
+  <link rel="stylesheet" href="./lib/swiper/css/swiper.min.css">
+  <link rel="stylesheet" href="./lib/css/index.css">
+  <link rel="stylesheet" href="./lib/font-awesome-4.7.0/css/font-awesome.min.css">
+  <title>个人网站</title>
+  <style>
+    
+ </style>
+</head>
+<body>
+<div id="app">
+  <!-- 加载动画组件 -->
+  <!-- <transition leave-active-class="animated fadeOutUp"><div class="loading" v-if="open" ><img src="./images/05.jpg" alt="" width="100%" height="100%"></div></transition>  -->
+  
+  <!-- 导航按钮 -->
+  <div class="nav_switch" @click="nav_switch()">
+    Q
+  </div>
+  <a @click="login">
+      <div class="lmessage">
+          <p>给我留言吧</p> 
+        </div>
+  </a>
+  <!-- <div v-if=true class="longin">
+    <input type="text" name="username"pla>
+  </div> -->
+  <!-- 头像组件 -->
+  <div class="quanzhu">
+    <div class="touxiang"></div>
+    <div class="myname"><span>Quanzhu</span> Wei</div>
+  </div>
+  <!-- 导航栏 -->
+  <div class="nav" :style='myturn'>
+    <div class="navinfo">
+      <ul>
+          <li aria-label="Go to slide 1">关于我</li>
+          <li aria-label="Go to slide 2">掌握技能</li>
+          <li aria-label="Go to slide 3">工作经历</li>
+          <li aria-label="Go to slide 4">教育背景</li>
+          <li aria-label="Go to slide 5">联系我</li>
+      </ul>
+    </div>
+    
+  </div>
+  <!-- 导航覆盖 -->
+  <div v-if="disp" class="nav_dang"></div>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <!-- 第一页 -->
+      <div class="swiper-slide" style="background: url(./images/3.jpg) no-repeat;background-size:100%;">
+        <!-- 狗牌，嘿嘿 -->
+        <div class="myinfo" v-change>
+          <div class="comment">
+            <p class="comtitel">WELCOME TO MY WEBSITE</p>
+            <p class="comword">with great power comes great responsibility</p>
+            <p>我叫韦泉助</p>
+            <p>一名努力学习中，奋斗中的网站设计者</p>
+          </div>
+        </div>
+      </div>
+      <!-- 第二页 -->
+      <div class="swiper-slide">
+        <div class="card middle">
+          <div class="front">
+            <img src="./images/03.jpg" alt="">
+          </div>
+          <div class="back">
+            <div class="back-content middle">
+              <h2>connect me</h2>
+              <span>WECHAT</span>
+              <div class="sm">
+                <a href="#"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-qq" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-weibo" aria-hidden="true"></i></i></a>
+                <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 第三页 -->
+      <div class="swiper-slide">Slide 3</div>
+      <!-- 第四页 -->
+      <div class="swiper-slide">Slide 4</div>
+
+      <div class="swiper-slide">Slide 5</div>
+
+      <div class="swiper-slide">Slide 6</div>
+    </div>
+    <!-- 添加分页器 -->
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+  <!-- 初始化 vue -->
+  <script>  
+    var vm = new Vue({
+      el:'#app',
+      data:{
+        disp:false,
+        open:true,
+        loginShow:false,
+        myturn:{
+          right:'-100%',
+        },
+      },
+      mounted(){
+        var loading = this
+        setTimeout(function(){loading.open = false;},1500)
+       
+     },
+      methods:{
+        nav_switch(){
+          var flag = this.disp
+          this.disp = !flag
+          if (this.disp) {
+            this.myturn.right = 0
+          }else{
+            this.myturn.right = '-100%'
+          }
+        },
+        login(){
+          
+        }
+        
+      },
+      directives:{ //自定义指令
+        change(el,binding){
+          el.onmousemove = function(e){
+            var disx = e.pageX - el.offsetLeft-el.offsetWidth/2;
+						var disy = e.pageY - el.offsetTop-el.offsetHeight/2;
+            disx = disx/20
+            disy = disy/20
+            el.style.transform = 'scale(1.03)'+' '+'translate('+disx+'px,'+disy+'px)'+' '+'rotateX('+disy+'deg)'+' '+'rotateY('+disx+'deg)'
+            el.style.transition = '0s'
+            }	
+            el.onmouseout = function(){
+              el.style.transition = '2s'
+              el.style.transform = 'scale(1.03)'+' '+'translate(0px,0px)'+' '+'rotateX(0deg)'+' '+'rotateY(0deg)'
+            }
+            
+          }
+      }
+    })
+  </script>
+  <!-- 初始化 Swiper -->
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      direction: 'vertical',
+      speed:400,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      mousewheel: {
+        eventsTarged: '.swiper-wrapper',
+    },
+    //重新定义分页器样式
+    paginationBulletRender:function(swiper, index, className) {
+      return '<span class="' + className + '">' + (index + 1) + '</span>';
+    }
+    });
+    
+  </script>
+</body>
+</html>
